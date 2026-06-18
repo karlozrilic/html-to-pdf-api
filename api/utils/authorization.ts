@@ -4,7 +4,7 @@ import { ALLOWED_ORIGINS } from './constants.js';
 export function isAuthorized(req: VercelRequest): boolean {
     const token = req.headers['x-proxy-secret'];
 
-    if (token === process.env.PROXY_SECRET) {
+    if (typeof token === 'string' && token === process.env.PROXY_SECRET) {
         return true;
     }
 

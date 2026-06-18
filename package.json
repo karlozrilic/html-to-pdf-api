@@ -1,0 +1,12 @@
+{
+    "name": "screenshot-api",
+    "version": "1.0.0",
+    "type": "module",
+    "dependencies": {
+        "@sparticuz/chromium": "^149.0.0",
+        "puppeteer-core": "^25.1.0"
+    },
+    "devDependencies": {
+        "@vercel/node": "^5.8.12"
+    }
+}

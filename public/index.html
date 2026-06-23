@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://karlozrilic.github.io/favicon/favicon.ico">
+    <link rel="icon" href="https://karlozrilic.github.io/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://karlozrilic.github.io/favicon/favicon-512x512.png" type="image/png" sizes="512x512">
+    <link rel="icon" href="https://karlozrilic.github.io/favicon/favicon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="icon" href="https://karlozrilic.github.io/favicon/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="https://karlozrilic.github.io/favicon/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="https://karlozrilic.github.io/favicon/apple-touch-icon.png" type="image/png" sizes="180x180">
+    <title>html to pdf</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+<body>
+    <div class="app">
+
+        <header class="header">
+            <div class="header-logo">
+                <span class="logo-mark"></span>
+                <span class="logo-text">pdf<span class="logo-accent">proxy</span></span>
+            </div>
+            <nav class="header-nav">
+                <a href="#" class="nav-link">Docs</a>
+                <a href="#" class="nav-link">GitHub</a>
+            </nav>
+        </header>
+
+        <main class="main">
+            <div class="hero">
+                <p class="hero-eyebrow">HTML → PDF converter</p>
+                <h1 class="hero-title">Render any page.<br>Download as PDF.</h1>
+                <p class="hero-sub">Headless Chromium. No headers. No footers. Just your content.</p>
+            </div>
+
+            <div class="card">
+
+                <!-- URL Input -->
+                <div class="url-bar">
+                    <span class="url-bar-protocol">https://</span>
+                    <input
+                        type="text"
+                        id="url-input"
+                        class="url-bar-input"
+                        placeholder="example.com/your-page"
+                        autocomplete="off"
+                        spellcheck="false"
+                    />
+                </div>
+
+                <!-- Options toggle -->
+                <button class="options-toggle" id="options-toggle" aria-expanded="false">
+                    <span class="options-toggle-label">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 3h11M1 6.5h11M1 10h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                        PDF options
+                    </span>
+                    <span class="options-toggle-count" id="options-count"></span>
+                    <svg class="options-toggle-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 5.5 7 9l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+
+                <div class="options-panel" id="options-panel">
+                    <div class="options-grid">
+
+                        <div class="field-group">
+                            <label class="field-label" for="opt-format">Format</label>
+                            <select id="opt-format" class="field-select">
+                                <option value="">A4 (default)</option>
+                                <option value="A0">A0</option>
+                                <option value="A1">A1</option>
+                                <option value="A2">A2</option>
+                                <option value="A3">A3</option>
+                                <option value="A5">A5</option>
+                                <option value="A6">A6</option>
+                                <option value="Letter">Letter</option>
+                                <option value="Legal">Legal</option>
+                                <option value="Tabloid">Tabloid</option>
+                                <option value="Ledger">Ledger</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="opt-scale">Scale</label>
+                            <div class="scale-field">
+                                <input type="range" id="opt-scale" class="field-range" min="0.1" max="2" step="0.05" value="1">
+                                <span class="scale-value" id="scale-display">1.0×</span>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="opt-page-ranges">Page ranges</label>
+                            <input type="text" id="opt-page-ranges" class="field-input" placeholder="e.g. 1-3, 5">
+                        </div>
+
+                        <div class="field-group field-group--full">
+                            <label class="field-label">Margins</label>
+                            <div class="margins-grid">
+                                <input type="text" id="opt-margin-top" class="field-input field-input--small" placeholder="top" value="20mm">
+                                <input type="text" id="opt-margin-right" class="field-input field-input--small" placeholder="right" value="15mm">
+                                <input type="text" id="opt-margin-bottom" class="field-input field-input--small" placeholder="bottom" value="20mm">
+                                <input type="text" id="opt-margin-left" class="field-input field-input--small" placeholder="left" value="15mm">
+                            </div>
+                        </div>
+
+                        <div class="field-group field-group--full">
+                            <label class="field-label">Custom dimensions <span class="field-hint">(overrides format)</span></label>
+                            <div class="dimensions-row">
+                                <input type="text" id="opt-width" class="field-input" placeholder="width e.g. 210mm">
+                                <span class="dimensions-sep">×</span>
+                                <input type="text" id="opt-height" class="field-input" placeholder="height e.g. 297mm">
+                            </div>
+                        </div>
+
+                        <div class="field-group field-group--full">
+                            <label class="field-label">Flags</label>
+                            <div class="toggles-row">
+                                <label class="toggle">
+                                    <input type="checkbox" id="opt-landscape">
+                                    <span class="toggle-track"></span>
+                                    <span class="toggle-label">Landscape</span>
+                                </label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="opt-print-bg" checked>
+                                    <span class="toggle-track"></span>
+                                    <span class="toggle-label">Print background</span>
+                                </label>
+                                <label class="toggle">
+                                    <input type="checkbox" id="opt-header-footer">
+                                    <span class="toggle-track"></span>
+                                    <span class="toggle-label">Header &amp; footer</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field-group field-group--full">
+                            <label class="field-label">Response format</label>
+                            <div class="radio-row">
+                                <label class="radio">
+                                    <input type="radio" name="responseFormat" value="" checked>
+                                    <span class="radio-track"></span>
+                                    <span class="radio-label">Binary PDF <span class="field-hint">(download)</span></span>
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="responseFormat" value="base64">
+                                    <span class="radio-track"></span>
+                                    <span class="radio-label">Base64 JSON</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="url-preview-row">
+                        <span class="url-preview-label">Request URL</span>
+                        <code class="url-preview" id="url-preview">—</code>
+                    </div>
+
+                </div>
+
+                <!-- Submit -->
+                <button class="submit-btn" id="submit-btn">
+                    <span class="submit-btn-text">Generate PDF</span>
+                    <span class="submit-btn-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v7m0 0L5.5 7.5M8 10l2.5-2.5M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </button>
+
+            </div>
+
+            <!-- Output -->
+            <div class="output" id="output" hidden>
+                <div class="output-header">
+                    <span class="output-label" id="output-label">Response</span>
+                    <div class="output-actions">
+                        <button class="output-action-btn" id="copy-btn" hidden>Copy</button>
+                        <button class="output-action-btn output-action-btn--primary" id="download-btn" hidden>
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 2v6m0 0L4.5 6M6.5 8l2-2M2 11h9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Download PDF
+                        </button>
+                    </div>
+                </div>
+                <pre class="output-body" id="output-body"></pre>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <span>Powered by Puppeteer + Chromium</span>
+            <span class="footer-sep">·</span>
+            <span>Deployed on Vercel</span>
+        </footer>
+
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
